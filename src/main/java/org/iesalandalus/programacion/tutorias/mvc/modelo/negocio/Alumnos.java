@@ -3,6 +3,7 @@ package org.iesalandalus.programacion.tutorias.mvc.modelo.negocio;
 import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.tutorias.mvc.modelo.dominio.Alumno;
+import org.iesalandalus.programacion.tutorias.mvc.modelo.dominio.Profesor;
 
 public class Alumnos {
 	private int capacidad;
@@ -14,7 +15,7 @@ public class Alumnos {
 			throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");
 		}else {
 			this.capacidad=capacidad;
-			this.tamano=0;
+			tamano=0;
 			this.coleccionAlumnos=new Alumno[capacidad];
 		}
 	}
@@ -27,6 +28,18 @@ public class Alumnos {
 		return tamano;
 	}
 
+	private Alumno[] copiaProfundaAlumno() {
+		Alumno[] copiaAlumnos=new Alumno[capacidad];
+		int indice=0;
+		
+		for(indice=0;!tamanoSuperado(indice);indice++) {
+			copiaAlumnos[indice]=new Alumno(coleccionAlumnos[indice]);
+		}
+			
+		return copiaAlumnos;
+		
+	}
+	
 	public void insertar(Alumno alumno) throws OperationNotSupportedException {
 		if (alumno==null) {
 			throw new NullPointerException("ERROR: No se puede insertar un alumno nulo.");
@@ -66,14 +79,9 @@ public class Alumnos {
 	}
 	
 	public Alumno[] get() {
-		Alumno[] copiaAlumnos=new Alumno[capacidad];
-		int indice=0;
 		
-		while(!tamanoSuperado(indice)) {
-				copiaAlumnos[indice]=new Alumno(coleccionAlumnos[indice]);
-		}
 			
-		return copiaAlumnos;
+		return copiaProfundaAlumno();
 		}
 	
 	public Alumno buscar(Alumno alumno) {
@@ -92,8 +100,6 @@ public class Alumnos {
 	}
 	
 	public void borrar(Alumno alumno) throws OperationNotSupportedException {
-		int posicion=0;
-		int i=0;
 		if(alumno==null) {
 			throw new IllegalArgumentException("ERROR: No se puede borrar un alumno nulo.");
 		}
