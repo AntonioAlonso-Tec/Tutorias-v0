@@ -145,7 +145,7 @@ public class Sesion {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(fecha, horaFin, horaInicio, minutosDuracion, tutoria);
+		return Objects.hash(fecha, tutoria);
 	}
 
 	@Override
@@ -157,9 +157,7 @@ public class Sesion {
 			return false;
 		}
 		Sesion other = (Sesion) obj;
-		return Objects.equals(fecha, other.fecha) && Objects.equals(horaFin, other.horaFin)
-				&& Objects.equals(horaInicio, other.horaInicio) && minutosDuracion == other.minutosDuracion
-				&& Objects.equals(tutoria, other.tutoria);
+		return Objects.equals(fecha, other.fecha) && Objects.equals(tutoria, other.tutoria);
 	}
 
 	@Override

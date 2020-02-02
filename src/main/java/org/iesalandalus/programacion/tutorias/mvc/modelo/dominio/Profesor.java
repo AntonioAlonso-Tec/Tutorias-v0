@@ -31,7 +31,7 @@ public class Profesor {
 	
 	public static Profesor getProfesorFicticio(String dni) {
 		String nombre="Perico palotes";
-		String correo=("capullazo@dinomail.com");
+		String correo=("golisopod@dinomail.com");
 		Profesor profesor=new Profesor(nombre,dni,correo);
 		
 		if(dni==null) {

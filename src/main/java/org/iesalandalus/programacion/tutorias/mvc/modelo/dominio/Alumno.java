@@ -89,52 +89,6 @@ public class Alumno {
 		}
 	}
 
-	/*private String formateaNombre(String nombre) {
-		String nombreFormateado;
-		String nombreSinEspacios;
-		String nombreCasiFormateado = null;
-		int indice = 0;
-		
-			//Elimina los espacios innecesarios
-			nombreSinEspacios = nombre.trim().replaceAll(" {2,}", " ");
-			
-			//Divide el nombre en partes
-			String[] nombreDividido=nombreSinEspacios.split(" ");
-			
-			
-			StringBuilder[] nombreDivididoSB=new StringBuilder[nombreDividido.length];
-			
-			for(int i=0;i<nombreDivididoSB.length;i++) {
-				nombreDivididoSB[i]=new StringBuilder(nombreDividido[i]);
-			}
-			
-			//Formatear todo el nombre en minuscula
-			for (int i=0;i<nombreDivididoSB.length;i++) {
-				for (int j=0;j<nombreDivididoSB[i].length();j++) {
-					if(Character.isUpperCase(nombreDivididoSB[i].charAt(j))) {
-						Character.toLowerCase(nombreDivididoSB[i].charAt(j));
-					}
-				}
-			}
-			
-			//Letra inicial de cada palabra en mayuscula
-			for (int i=0;i<nombreDivididoSB.length;i++) {
-					if (Character.isLowerCase(nombreDivididoSB[i].charAt(0))){
-						Character.toUpperCase(nombreDivididoSB[i].charAt(0));
-				}
-			}
-			
-			for (int i=0;i<nombreDivididoSB.length;i++) {
-				nombreCasiFormateado=nombreDivididoSB[i].toString()+" ";
-			}
-			
-			System.out.println(nombreDivididoSB.toString());
-			
-			nombreFormateado=nombreCasiFormateado.trim();
-		
-			return nombreFormateado;
-	}*/
-
 	public String getCorreo() {
 		return correo;
 	}
