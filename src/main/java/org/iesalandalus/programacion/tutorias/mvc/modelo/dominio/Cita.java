@@ -9,22 +9,22 @@ public class Cita {
 	private LocalTime hora;
 	private Sesion sesion;
 	private Alumno alumno;
-	
-	public Cita(Alumno alumno,Sesion sesion,LocalTime hora) {
+
+	public Cita(Alumno alumno, Sesion sesion, LocalTime hora) {
 		setAlumno(alumno);
 		setSesion(sesion);
 		setHora(hora);
 	}
-	
-	public Cita (Cita cita) {
-		if(cita==null) {
-			throw new NullPointerException("ERROR: No se puede copiar una cita nula");
-		}else {
+
+	public Cita(Cita cita) {
+		if (cita == null) {
+			throw new NullPointerException("ERROR: No es posible copiar una cita nula.");
+		} else {
 			setAlumno(cita.getAlumno());
 			setSesion(cita.getSesion());
 			setHora(cita.getHora());
 		}
-		
+
 	}
 
 	public LocalTime getHora() {
@@ -32,8 +32,14 @@ public class Cita {
 	}
 
 	private void setHora(LocalTime hora) {
-		if(hora==null) {
-			throw new NullPointerException("ERROR: La hora no puede ser nula");
+		LocalTime horaInicioClases=LocalTime.parse("16:00", FORMATO_HORA);
+		LocalTime horaFinClases=LocalTime.parse("22:15", FORMATO_HORA);
+		if (hora == null) {
+			throw new NullPointerException("ERROR: La hora no puede ser nula.");
+		} else if(hora.isBefore(horaInicioClases)||hora.isAfter(horaFinClases)) {
+			throw new IllegalArgumentException("ERROR: La hora debe estar comprendida entre la hora de inicio y fin de la sesión.");
+		} else if(sesion.getHoraInicio().isAfter(sesion.getHoraFin())) {
+			throw new IllegalArgumentException("ERROR: La hora de inicio debe ir antes que la de Fin.");
 		}else {
 			this.hora = hora;
 		}
@@ -44,9 +50,9 @@ public class Cita {
 	}
 
 	private void setSesion(Sesion sesion) {
-		if(sesion==null) {
-			throw new NullPointerException("ERROR: La sesión no puede ser nula");
-		}else{
+		if (sesion == null) {
+			throw new NullPointerException("ERROR: La sesión no puede ser nula.");
+		} else {
 			this.sesion = new Sesion(sesion);
 		}
 	}
@@ -56,9 +62,9 @@ public class Cita {
 	}
 
 	private void setAlumno(Alumno alumno) {
-		if(alumno==null) {
-			throw new NullPointerException("ERROR: El alumno no puede ser nulo");
-		}else {
+		if (alumno == null) {
+			throw new NullPointerException("ERROR: El alumno no puede ser nulo.");
+		} else {
 			this.alumno = new Alumno(alumno);
 		}
 	}
@@ -83,8 +89,7 @@ public class Cita {
 
 	@Override
 	public String toString() {
-		return String.format("alumno=%s, sesion=%s, hora=%s", getAlumno(),getSesion(),getHora().format(FORMATO_HORA));
+		return String.format("alumno=%s, sesion=%s, hora=%s", getAlumno(), getSesion(), getHora().format(FORMATO_HORA));
 	}
-	
-	
+
 }

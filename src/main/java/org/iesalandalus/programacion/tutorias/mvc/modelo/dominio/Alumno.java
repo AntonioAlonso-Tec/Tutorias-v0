@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public class Alumno {
 	private static final String ER_NOMBRE = "([A-Zu00C0-\\u017F]{1}[a-zu00C0-\\u017F]+ )+([A-Zu00C0-\\u017F]{1}[a-zu00C0-\\u017F]+)";
-	private static final String PREFIJO_EXPEDIENTE="SP_";
+	private static final String PREFIJO_EXPEDIENTE = "SP_";
 	private static final String ER_CORREO = "([A-Za-z0-9]+[.]?)([A-Za-z0-9]+)[@]([A-Za-z0-9]+[.])([a-z]{2,3})";
 	private static int ultimoIdentificador = 0;
 	private String nombre;
 	private String correo;
-	private String expediente; 
+	private String expediente;
 
 	public Alumno(String nombre, String correo) {
 		setNombre(formateaNombre(nombre));
@@ -19,27 +19,26 @@ public class Alumno {
 	}
 
 	public Alumno(Alumno alumno) {
-		if (alumno==null) {
+		if (alumno == null) {
 			throw new NullPointerException("ERROR: No es posible copiar un alumno nulo.");
-		}else {
+		} else {
 			setNombre(alumno.nombre);
 			setCorreo(alumno.correo);
 			setExpediente(alumno.expediente);
 		}
 
 	}
-	
+
 	public static Alumno getAlumnoFicticio(String correo) {
-		String nombre="Perico palotes";
-		Alumno alumno=new Alumno(nombre,correo);
-		
+		String nombre = "Perico palotes";
+		Alumno alumno = new Alumno(nombre, correo);
+
 		if (!correo.equals(alumno.correo)) {
 			throw new IllegalArgumentException("ERROR: Este alumno no existe");
-		}else {
+		} else {
 			return alumno;
 		}
-		
-		
+
 	}
 
 	public String getNombre() {
@@ -47,15 +46,15 @@ public class Alumno {
 	}
 
 	private void setNombre(String nombre) {
-		if(nombre==null) {
+		if (nombre == null) {
 			throw new NullPointerException("ERROR: El nombre no puede ser nulo.");
-		}else if(nombre.trim().equals("")||!nombre.matches(ER_NOMBRE)){
+		} else if (nombre.trim().equals("") || !nombre.matches(ER_NOMBRE)) {
 			throw new IllegalArgumentException("ERROR: El nombre no tiene un formato válido.");
-		}else {
-			this.nombre=nombre;
+		} else {
+			this.nombre = nombre;
 		}
 	}
-	
+
 	private String formateaNombre(String nombre) {
 		String nombreFormateado = "";
 		String nombreConEspacios = "";
@@ -63,7 +62,7 @@ public class Alumno {
 
 		if (nombre == null) {
 			throw new NullPointerException("ERROR: El nombre no puede ser nulo.");
-		} else if(nombre.trim().equals("")){
+		} else if (nombre.trim().equals("")) {
 			throw new IllegalArgumentException("ERROR: El nombre no tiene un formato válido.");
 		} else {
 			StringBuilder formato = new StringBuilder(nombre);
@@ -94,15 +93,14 @@ public class Alumno {
 	}
 
 	private void setCorreo(String correo) {
-		if(correo==null) {
+		if (correo == null) {
 			throw new NullPointerException("ERROR: El correo no puede ser nulo.");
-		}else if(correo.trim().equals("")) {
+		} else if (correo.trim().equals("")) {
 			throw new IllegalArgumentException("ERROR: El formato del correo no es válido.");
-		}
-			else if(!correo.matches(ER_CORREO)) {
-		
+		} else if (!correo.matches(ER_CORREO)) {
+
 			throw new IllegalArgumentException("ERROR: El formato del correo no es válido.");
-		}else {
+		} else {
 			this.correo = correo;
 		}
 	}
@@ -112,23 +110,24 @@ public class Alumno {
 	}
 
 	private void setExpediente(String expediente) {
-		if(ultimoIdentificador<1) {
+		if (ultimoIdentificador < 1) {
 			throw new IllegalArgumentException("ERROR: No puede existir menos de 1 alumno");
-		}else {
-		
-		this.expediente = PREFIJO_EXPEDIENTE+getIniciales()+"_"+ultimoIdentificador;;
+		} else {
+
+			this.expediente = PREFIJO_EXPEDIENTE + getIniciales() + "_" + ultimoIdentificador;
+			;
 		}
 	}
-	
+
 	private String getIniciales() {
-		nombre=formateaNombre(nombre);
+		nombre = formateaNombre(nombre);
 		String iniciales = "";
 		char inicial;
 
-		if (nombre==null) {
+		if (nombre == null) {
 			System.out.println("No hay nombre del que coger las iniciales");
 		}
-		
+
 		for (int i = 0; i < nombre.length(); i++) {
 			if (Character.isUpperCase(nombre.charAt(i))) {
 				inicial = nombre.charAt(i);
@@ -137,7 +136,7 @@ public class Alumno {
 		}
 		return iniciales;
 	}
-	
+
 	private static void incrementaUltimoModificador() {
 		ultimoIdentificador++;
 	}
@@ -161,8 +160,7 @@ public class Alumno {
 
 	@Override
 	public String toString() {
-		return "nombre=" + nombre + " ("+getIniciales()+")" + ", correo=" + correo + ", expediente=" + expediente;
+		return "nombre=" + nombre + " (" + getIniciales() + ")" + ", correo=" + correo + ", expediente=" + expediente;
 	}
 
 }
-

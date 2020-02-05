@@ -1,161 +1,160 @@
 package org.iesalandalus.programacion.tutorias.mvc.vista;
 
 public enum Opcion {
-	INSERTAR_ALUMNO("Insertar Alumno"){
+	INSERTAR_ALUMNO("Insertar Alumno") {
 		public void ejecutar() {
 			vista.insertarAlumno();
 		}
 	},
-	BUSCAR_ALUMNO("Buscar Alumno"){
+	BUSCAR_ALUMNO("Buscar Alumno") {
 		public void ejecutar() {
 			vista.buscarAlumno();
 		}
 	},
-	BORRAR_ALUMNO("Borrar Alumno"){
+	BORRAR_ALUMNO("Borrar Alumno") {
 		public void ejecutar() {
 			vista.borrarAlumno();
 		}
 	},
-	LISTAR_ALUMNOS("Listar Alumnos"){
+	LISTAR_ALUMNOS("Listar Alumnos") {
 		public void ejecutar() {
 			vista.listarAlumnos();
 		}
 	},
-	INSERTAR_PROFESOR("Insertar Profesor"){
+	INSERTAR_PROFESOR("Insertar Profesor") {
 		public void ejecutar() {
 			vista.insertarProfesor();
 		}
 	},
-	BUSCAR_PROFESOR("Buscar Profesor"){
+	BUSCAR_PROFESOR("Buscar Profesor") {
 		public void ejecutar() {
 			vista.buscarProfesor();
 		}
 	},
-	BORRAR_PROFESOR("Borrar Profesor"){
+	BORRAR_PROFESOR("Borrar Profesor") {
 		public void ejecutar() {
 			vista.borrarProfesor();
 		}
 	},
-	LISTAR_PROFESORES("Listar Profesores"){
+	LISTAR_PROFESORES("Listar Profesores") {
 		public void ejecutar() {
 			vista.listarProfesores();
 		}
 	},
-	INSERTAR_TUTORIA("Insertar Tutoría"){
+	INSERTAR_TUTORIA("Insertar Tutoría") {
 		public void ejecutar() {
 			vista.insertarTutoria();
 		}
 	},
-	BUSCAR_TUTORIA("Buscar Tutoría"){
+	BUSCAR_TUTORIA("Buscar Tutoría") {
 		public void ejecutar() {
 			vista.buscarTutoria();
 		}
 	},
-	BORRAR_TUTORIA("Borrar Tutoría"){
+	BORRAR_TUTORIA("Borrar Tutoría") {
 		public void ejecutar() {
 			vista.borrarTutoria();
 		}
 	},
-	LISTAR_TUTORIAS("Listar Tutorías"){
+	LISTAR_TUTORIAS("Listar Tutorías") {
 		public void ejecutar() {
 			vista.listarTutorias();
 		}
 	},
-	LISTAR_TUTORIAS_PROFESOR("Listar Tutorías por Profesor"){
+	LISTAR_TUTORIAS_PROFESOR("Listar Tutorías por Profesor") {
 		public void ejecutar() {
 			vista.listarTutoriasProfesor();
 		}
 	},
-	INSERTAR_SESION("Insertar Sesión"){
+	INSERTAR_SESION("Insertar Sesión") {
 		public void ejecutar() {
 			vista.insertarSesion();
 		}
 	},
-	BUSCAR_SESION("Buscar Sesión"){
+	BUSCAR_SESION("Buscar Sesión") {
 		public void ejecutar() {
 			vista.buscarSesion();
 		}
 	},
-	BORRAR_SESION("Borrar Sesión"){
+	BORRAR_SESION("Borrar Sesión") {
 		public void ejecutar() {
 			vista.borrarSesion();
 		}
 	},
-	LISTAR_SESION("Listar Sesiones"){
+	LISTAR_SESION("Listar Sesiones") {
 		public void ejecutar() {
 			vista.listarSesiones();
 		}
 	},
-	LISTAR_SESIONES_TUTORIA("Listar Sesiones por Tutoría"){
+	LISTAR_SESIONES_TUTORIA("Listar Sesiones por Tutoría") {
 		public void ejecutar() {
 			vista.listarSesionesTutoria();
 		}
 	},
-	INSERTAR_CITA("Insertar Cita"){
+	INSERTAR_CITA("Insertar Cita") {
 		public void ejecutar() {
 			vista.insertarCita();
 		}
 	},
-	BUSCAR_CITA("Buscar Cita"){
+	BUSCAR_CITA("Buscar Cita") {
 		public void ejecutar() {
 			vista.buscarCita();
 		}
 	},
-	BORRAR_CITA("Borrar Cita"){
+	BORRAR_CITA("Borrar Cita") {
 		public void ejecutar() {
 			vista.borrarCita();
 		}
 	},
-	LISTAR_CITAS("Listar Citas"){
+	LISTAR_CITAS("Listar Citas") {
 		public void ejecutar() {
 			vista.listarCitas();
 		}
 	},
-	LISTAR_CITAS_SESION("Listar Citas por Sesión"){
+	LISTAR_CITAS_SESION("Listar Citas por Sesión") {
 		public void ejecutar() {
 			vista.listarCitasSesion();
 		}
 	},
-	LISTAR_CITAS_ALUMNO("Listar Citas por Alumno"){
+	LISTAR_CITAS_ALUMNO("Listar Citas por Alumno") {
 		public void ejecutar() {
 			vista.listarCitasAlumno();
 		}
 	},
-	SALIR("Salir"){
+	SALIR("Salir") {
 		public void ejecutar() {
 			vista.terminar();
 		}
 	};
-	
+
 	private static Vista vista;
 	private String texto;
-	
+
 	private Opcion(String texto) {
-		this.texto=texto;
+		this.texto = texto;
 	}
-	
+
 	public abstract void ejecutar();
-	
+
 	protected static void setVista(Vista vista) {
 		Opcion.vista = vista;
 	}
-	
+
 	public static boolean esOrdinalValido(int ordinal) {
-		return (ordinal>=0&&ordinal<=values().length -1);
+		return (ordinal >= 0 && ordinal <= values().length - 1);
 	}
-	
+
 	public static Opcion getOpcionSegunOrdinal(int ordinal) {
-		if(esOrdinalValido(ordinal)) {
+		if (esOrdinalValido(ordinal)) {
 			return values()[ordinal];
-		}else {
+		} else {
 			throw new IllegalArgumentException("ERROR: Número de opción no válido");
 		}
 	}
-	
+
 	@Override
 	public String toString() {
-		return String.format("%d.- %s", ordinal(),texto);
+		return String.format("%d.- %s", ordinal(), texto);
 	}
-	
-	
+
 }

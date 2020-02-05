@@ -6,20 +6,20 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Sesion {
-	private static final LocalTime HORA_COMIENZO_CLASES=LocalTime.of(16, 00);
-	private static final LocalTime HORA_FIN_CLASES=LocalTime.of(22, 15);
-	public static final DateTimeFormatter FORMATO_FECHA=DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	public static final DateTimeFormatter FORMATO_HORA=DateTimeFormatter.ofPattern("HH:mm");
+	private static final LocalTime HORA_COMIENZO_CLASES = LocalTime.of(16, 00);
+	private static final LocalTime HORA_FIN_CLASES = LocalTime.of(22, 15);
+	public static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	public static final DateTimeFormatter FORMATO_HORA = DateTimeFormatter.ofPattern("HH:mm");
 	private LocalDate fecha;
 	private LocalTime horaInicio;
 	private LocalTime horaFin;
 	private int minutosDuracion;
 	private Tutoria tutoria;
-	
-	public Sesion(Tutoria tutoria,LocalDate fecha,LocalTime horaInicio,LocalTime horaFin,int minutosDuracion) {
-		if(tutoria==null) {
+
+	public Sesion(Tutoria tutoria, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, int minutosDuracion) {
+		if (tutoria == null) {
 			throw new NullPointerException("ERROR: La tutoría no puede ser nula.");
-		}else {
+		} else {
 			setTutoria(new Tutoria(tutoria));
 		}
 		setFecha(fecha);
@@ -28,11 +28,11 @@ public class Sesion {
 		setMinutosDuracion(minutosDuracion);
 		comprobarValidezSesion();
 	}
-	
+
 	public Sesion(Sesion sesion) {
-		if(sesion==null) {
+		if (sesion == null) {
 			throw new NullPointerException("ERROR: No es posible copiar una sesión nula.");
-		}else {
+		} else {
 			setTutoria(sesion.getTutoria());
 			setFecha(sesion.getFecha());
 			setHoraInicio(sesion.getHoraInicio());
@@ -46,13 +46,13 @@ public class Sesion {
 	}
 
 	private void setFecha(LocalDate fecha) {
-		
-		if(fecha==null) {
+
+		if (fecha == null) {
 			throw new NullPointerException("ERROR: La fecha no puede ser nula.");
-		}else if(fecha.compareTo(LocalDate.now().plusDays(1))<0){
+		} else if (fecha.compareTo(LocalDate.now().plusDays(1)) < 0) {
 			throw new IllegalArgumentException("ERROR: Las sesiones de deben planificar para fechas futuras.");
-		}else {
-			this.fecha=fecha;
+		} else {
+			this.fecha = fecha;
 		}
 	}
 
@@ -61,9 +61,9 @@ public class Sesion {
 	}
 
 	private void setHoraInicio(LocalTime horaInicio) {
-		if(horaInicio==null) {
+		if (horaInicio == null) {
 			throw new NullPointerException("ERROR: La hora de inicio no puede ser nula.");
-		}else {
+		} else {
 			this.horaInicio = horaInicio;
 		}
 	}
@@ -73,9 +73,9 @@ public class Sesion {
 	}
 
 	private void setHoraFin(LocalTime horaFin) {
-		if(horaFin==null) {
+		if (horaFin == null) {
 			throw new NullPointerException("ERROR: La hora de fin no puede ser nula.");
-		}else {
+		} else {
 			this.horaFin = horaFin;
 		}
 	}
@@ -85,10 +85,9 @@ public class Sesion {
 	}
 
 	private void setMinutosDuracion(int minutosDuracion) {
-		if(minutosDuracion<1) {
+		if (minutosDuracion < 1) {
 			throw new IllegalArgumentException("ERROR: Los minutos de duración no son válidos.");
-		}
-		else {
+		} else {
 			this.minutosDuracion = minutosDuracion;
 		}
 	}
@@ -98,49 +97,50 @@ public class Sesion {
 	}
 
 	private void setTutoria(Tutoria tutoria) {
-		if (tutoria==null) {
+		if (tutoria == null) {
 			throw new NullPointerException("ERROR: La tutoría no puede ser nula.");
-		}else {
+		} else {
 			this.tutoria = tutoria;
 		}
-		
+
 	}
-	
+
 	private void comprobarValidezSesion() {
 
-		Duration tiempoSesion=Duration.between(horaInicio, horaFin);
-		int tiempoSesionMinutos=Math.toIntExact(tiempoSesion.toMinutes());
-		
-		if(horaInicio.compareTo(HORA_COMIENZO_CLASES)<0||horaInicio.compareTo(HORA_FIN_CLASES)>=0) {
+		Duration tiempoSesion = Duration.between(horaInicio, horaFin);
+		int tiempoSesionMinutos = Math.toIntExact(tiempoSesion.toMinutes());
+
+		if (horaInicio.compareTo(HORA_COMIENZO_CLASES) < 0 || horaInicio.compareTo(HORA_FIN_CLASES) >= 0) {
 			throw new IllegalArgumentException("ERROR: La hora de inicio no es válida.");
 		}
-		
-		if(horaFin.compareTo(HORA_COMIENZO_CLASES)<0||horaFin.compareTo(HORA_FIN_CLASES)>0) {
+
+		if (horaFin.compareTo(HORA_COMIENZO_CLASES) < 0 || horaFin.compareTo(HORA_FIN_CLASES) > 0) {
 			throw new IllegalArgumentException("ERROR: La hora de fin no es válida.");
 		}
-		
-		if(horaFin.compareTo(horaInicio)==0||horaInicio.compareTo(horaFin)>0) {
+
+		if (horaFin.compareTo(horaInicio) == 0 || horaInicio.compareTo(horaFin) > 0) {
 			throw new IllegalArgumentException("ERROR: Las hora para establecer la sesión no son válidas.");
 		}
-		
-		if(tiempoSesionMinutos%minutosDuracion!=0) {
-			throw new IllegalArgumentException("ERROR: Los minutos de duración no es divisor de los minutos establecidos para toda la sesión.");
+
+		if (tiempoSesionMinutos % minutosDuracion != 0) {
+			throw new IllegalArgumentException(
+					"ERROR: Los minutos de duración no es divisor de los minutos establecidos para toda la sesión.");
 		}
-		
+
 	}
-	
-	public static Sesion getSesionFicticia(Tutoria tutoria,LocalDate fecha) {
-		LocalTime horaInicio=LocalTime.of(16,45);
-		LocalTime horaFin=LocalTime.of(17, 00);
-		int minutosDuracion=15;
-		Sesion sesion=new Sesion(tutoria,fecha,horaInicio,horaFin,minutosDuracion);
-		
-		if(tutoria==null||fecha==null) {
+
+	public static Sesion getSesionFicticia(Tutoria tutoria, LocalDate fecha) {
+		LocalTime horaInicio = LocalTime.of(16, 45);
+		LocalTime horaFin = LocalTime.of(17, 00);
+		int minutosDuracion = 15;
+		Sesion sesion = new Sesion(tutoria, fecha, horaInicio, horaFin, minutosDuracion);
+
+		if (tutoria == null || fecha == null) {
 			throw new NullPointerException("ERROR: La tutoria o la fecha no pueden ser nulas");
-		}else {
+		} else {
 			return sesion;
 		}
-		
+
 	}
 
 	@Override
@@ -163,8 +163,8 @@ public class Sesion {
 	@Override
 	public String toString() {
 		return String.format("tutoria=%s, fecha=%s, horaInicio=%s, horaFin=%s, minutosDuracion=%d", getTutoria(),
-				getFecha().format(FORMATO_FECHA),getHoraInicio().format(FORMATO_HORA),getHoraFin().format(FORMATO_HORA),getMinutosDuracion());
+				getFecha().format(FORMATO_FECHA), getHoraInicio().format(FORMATO_HORA),
+				getHoraFin().format(FORMATO_HORA), getMinutosDuracion());
 	}
-	
-	
+
 }

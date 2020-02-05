@@ -11,55 +11,54 @@ public class Profesor {
 	private String nombre;
 	private String dni;
 	private String correo;
-	
-	public Profesor(String nombre,String dni,String correo) {
+
+	public Profesor(String nombre, String dni, String correo) {
 		setNombre(formateaNombre(nombre));
 		setDni(dni);
 		setCorreo(correo);
 	}
-	
+
 	public Profesor(Profesor profesor) {
-		if (profesor==null) {
+		if (profesor == null) {
 			throw new NullPointerException("ERROR: No es posible copiar un profesor nulo.");
-		}else {
+		} else {
 			setNombre(profesor.nombre);
 			setDni(profesor.dni);
 			setCorreo(profesor.correo);
 		}
 	}
 
-	
 	public static Profesor getProfesorFicticio(String dni) {
-		String nombre="Perico palotes";
-		String correo=("golisopod@dinomail.com");
-		Profesor profesor=new Profesor(nombre,dni,correo);
-		
-		if(dni==null) {
+		String nombre = "Perico palotes";
+		String correo = ("golisopod@dinomail.com");
+		Profesor profesor = new Profesor(nombre, dni, correo);
+
+		if (dni == null) {
 			throw new NullPointerException("ERROR: El DNI no puede ser nulo");
-		}else if (dni.trim().equals("")) {
+		} else if (dni.trim().equals("")) {
 			throw new IllegalArgumentException("ERROR: El DNI no puede estar vacío");
-		}else if (!dni.equals(profesor.dni)) {
+		} else if (!dni.equals(profesor.dni)) {
 			throw new IllegalArgumentException("ERROR: Este profesor no existe");
-		}else {
+		} else {
 			return profesor;
 		}
-		
-		
+
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
 
 	private void setNombre(String nombre) {
-		if(nombre==null) {
+		if (nombre == null) {
 			throw new NullPointerException("ERROR: El nombre no puede ser nulo.");
-		}else if(nombre.equals("")||!nombre.matches(ER_NOMBRE)){
+		} else if (nombre.equals("") || !nombre.matches(ER_NOMBRE)) {
 			throw new IllegalArgumentException("ERROR: El nombre no tiene un formato válido.");
-		}else {
-			this.nombre=nombre;
+		} else {
+			this.nombre = nombre;
 		}
 	}
-	
+
 	private String formateaNombre(String nombre) {
 		String nombreFormateado = "";
 		String nombreConEspacios = "";
@@ -67,7 +66,7 @@ public class Profesor {
 
 		if (nombre == null) {
 			throw new NullPointerException("ERROR: El nombre no puede ser nulo.");
-		} else if(nombre.trim().equals("")){
+		} else if (nombre.trim().equals("")) {
 			throw new IllegalArgumentException("ERROR: El nombre no tiene un formato válido.");
 		} else {
 			StringBuilder formato = new StringBuilder(nombre);
@@ -92,63 +91,53 @@ public class Profesor {
 			return nombreFormateado;
 		}
 	}
-/*
-	private String formateaNombre(String nombre) {
-		String nombreFormateado;
-		String nombreSinEspacios;
-		String nombreCasiFormateado = null;
-		int indice = 0;
-		
-			//Elimina los espacios innecesarios
-			nombreSinEspacios = nombre.trim().replaceAll("\\s{2,}", "\\s");
-			
-			//Divide el nombre en partes
-			String[] nombreDividido=nombreSinEspacios.split(" ");
-			
-			
-			StringBuilder[] nombreDivididoSB=new StringBuilder[nombreDividido.length];
-			
-			for(int i=0;i<nombreDivididoSB.length;i++) {
-				nombreDivididoSB[i]=new StringBuilder(nombreDividido[i]);
-			}
-			
-			//Formatear todo el nombre en minuscula
-			for (int i=0;i<nombreDivididoSB.length;i++) {
-				for (int j=0;j<nombreDivididoSB[i].length();j++) {
-					if(Character.isUpperCase(nombreDivididoSB[i].charAt(j))) {
-						Character.toLowerCase(nombreDivididoSB[i].charAt(j));
-					}
-				}
-			}
-			
-			//Letra inicial de cada palabra en mayuscula
-			for (int i=0;i<nombreDivididoSB.length;i++) {
-					if (Character.isLowerCase(nombreDivididoSB[i].charAt(0))){
-						Character.toUpperCase(nombreDivididoSB[i].charAt(0));
-				}
-			}
-			
-			for (int i=0;i<nombreDivididoSB.length;i++) {
-				nombreCasiFormateado=nombreDivididoSB[i].toString();
-			}
-			
-			System.out.println(nombreDivididoSB.toString());
-			
-			nombreFormateado=nombreCasiFormateado.trim();
-		
-			return nombreFormateado;
-	}
-	*/
+
+	/*
+	 * private String formateaNombre(String nombre) { String nombreFormateado;
+	 * String nombreSinEspacios; String nombreCasiFormateado = null; int indice = 0;
+	 * 
+	 * //Elimina los espacios innecesarios nombreSinEspacios =
+	 * nombre.trim().replaceAll("\\s{2,}", "\\s");
+	 * 
+	 * //Divide el nombre en partes String[]
+	 * nombreDividido=nombreSinEspacios.split(" ");
+	 * 
+	 * 
+	 * StringBuilder[] nombreDivididoSB=new StringBuilder[nombreDividido.length];
+	 * 
+	 * for(int i=0;i<nombreDivididoSB.length;i++) { nombreDivididoSB[i]=new
+	 * StringBuilder(nombreDividido[i]); }
+	 * 
+	 * //Formatear todo el nombre en minuscula for (int
+	 * i=0;i<nombreDivididoSB.length;i++) { for (int
+	 * j=0;j<nombreDivididoSB[i].length();j++) {
+	 * if(Character.isUpperCase(nombreDivididoSB[i].charAt(j))) {
+	 * Character.toLowerCase(nombreDivididoSB[i].charAt(j)); } } }
+	 * 
+	 * //Letra inicial de cada palabra en mayuscula for (int
+	 * i=0;i<nombreDivididoSB.length;i++) { if
+	 * (Character.isLowerCase(nombreDivididoSB[i].charAt(0))){
+	 * Character.toUpperCase(nombreDivididoSB[i].charAt(0)); } }
+	 * 
+	 * for (int i=0;i<nombreDivididoSB.length;i++) {
+	 * nombreCasiFormateado=nombreDivididoSB[i].toString(); }
+	 * 
+	 * System.out.println(nombreDivididoSB.toString());
+	 * 
+	 * nombreFormateado=nombreCasiFormateado.trim();
+	 * 
+	 * return nombreFormateado; }
+	 */
 	public String getDni() {
 		return dni;
 	}
 
 	private void setDni(String dni) {
-		if (dni == null){
-		throw new NullPointerException("ERROR: El DNI no puede ser nulo.");
-		}else if(dni.trim().equals("")||!dni.matches(ER_DNI)){
+		if (dni == null) {
+			throw new NullPointerException("ERROR: El DNI no puede ser nulo.");
+		} else if (dni.trim().equals("") || !dni.matches(ER_DNI)) {
 			throw new IllegalArgumentException("ERROR: El DNI no tiene un formato válido.");
-		}else {
+		} else {
 			this.dni = comprobarLetraDni(dni);
 		}
 	}
@@ -160,7 +149,7 @@ public class Profesor {
 				'H', 'L', 'C', 'K', 'E' };
 		Pattern patron;
 		Matcher comparar;
-		if (dni == null||dni.trim().equals("")) {
+		if (dni == null || dni.trim().equals("")) {
 			throw new IllegalArgumentException("ERROR: El DNI no puede ser nulo.");
 		} else {
 			patron = Pattern.compile(ER_DNI);
@@ -179,21 +168,20 @@ public class Profesor {
 			}
 		}
 	}
-	
+
 	public String getCorreo() {
 		return correo;
 	}
 
 	private void setCorreo(String correo) {
-		if(correo==null) {
+		if (correo == null) {
 			throw new NullPointerException("ERROR: El correo no puede ser nulo.");
-		}else if(correo.trim().equals("")) {
+		} else if (correo.trim().equals("")) {
 			throw new IllegalArgumentException("ERROR: El formato del correo no es válido.");
-		}
-			else if(!correo.matches(ER_CORREO)) {
-		
+		} else if (!correo.matches(ER_CORREO)) {
+
 			throw new IllegalArgumentException("ERROR: El formato del correo no es válido.");
-		}else {
+		} else {
 			this.correo = correo;
 		}
 	}
@@ -227,12 +215,10 @@ public class Profesor {
 		}
 		return iniciales;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "nombre=" + nombre + " ("+getIniciales()+")"+ ", DNI=" + dni + ", correo=" + correo;
+		return "nombre=" + nombre + " (" + getIniciales() + ")" + ", DNI=" + dni + ", correo=" + correo;
 	}
-	
-	
-	
+
 }

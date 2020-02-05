@@ -5,24 +5,24 @@ import java.util.Objects;
 public class Tutoria {
 	private String nombre;
 	private Profesor profesor;
-	
-	public Tutoria(Profesor profesor,String nombre) {
-		if(profesor==null) {
+
+	public Tutoria(Profesor profesor, String nombre) {
+		if (profesor == null) {
 			throw new NullPointerException("ERROR: El profesor no puede ser nulo.");
-		}else {
+		} else {
 			setProfesor(new Profesor(profesor));
 		}
 		setNombre(nombre);
 	}
-	
+
 	public Tutoria(Tutoria tutoria) {
-		if(tutoria==null) {
+		if (tutoria == null) {
 			throw new NullPointerException("ERROR: No es posible copiar una tutoría nula.");
-		}else {
+		} else {
 			setProfesor(tutoria.getProfesor());
 			setNombre(tutoria.getNombre());
-			new Tutoria(tutoria.getProfesor(),tutoria.getNombre());
-			
+			new Tutoria(tutoria.getProfesor(), tutoria.getNombre());
+
 		}
 	}
 
@@ -31,11 +31,11 @@ public class Tutoria {
 	}
 
 	private void setNombre(String nombre) {
-		if(nombre==null) {
+		if (nombre == null) {
 			throw new NullPointerException("ERROR: El nombre no puede ser nulo.");
-		}else if(nombre.trim().equals("")) {
+		} else if (nombre.trim().equals("")) {
 			throw new IllegalArgumentException("ERROR: El nombre no tiene un formato válido.");
-		}else {
+		} else {
 			this.nombre = nombre.trim();
 		}
 	}
@@ -45,9 +45,9 @@ public class Tutoria {
 	}
 
 	private void setProfesor(Profesor profesor) {
-		if(profesor==null) {
+		if (profesor == null) {
 			throw new NullPointerException("ERROR: El profesor no puede ser nulo.");
-		}else {
+		} else {
 			this.profesor = profesor;
 		}
 	}
@@ -71,9 +71,7 @@ public class Tutoria {
 
 	@Override
 	public String toString() {
-		return "profesor=" + profesor+", nombre=" + nombre;
+		return "profesor=" + profesor + ", nombre=" + nombre;
 	}
-	
-	
-	
+
 }
