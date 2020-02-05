@@ -136,6 +136,10 @@ public enum Opcion {
 	
 	public abstract void ejecutar();
 	
+	protected static void setVista(Vista vista) {
+		Opcion.vista = vista;
+	}
+	
 	public static boolean esOrdinalValido(int ordinal) {
 		return (ordinal>=0&&ordinal<=values().length -1);
 	}
