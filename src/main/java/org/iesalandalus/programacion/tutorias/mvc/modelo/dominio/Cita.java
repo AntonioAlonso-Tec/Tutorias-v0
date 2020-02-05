@@ -1,5 +1,6 @@
 package org.iesalandalus.programacion.tutorias.mvc.modelo.dominio;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -32,15 +33,21 @@ public class Cita {
 	}
 
 	private void setHora(LocalTime hora) {
-		LocalTime horaInicioClases=LocalTime.parse("16:00", FORMATO_HORA);
-		LocalTime horaFinClases=LocalTime.parse("22:15", FORMATO_HORA);
+		LocalTime horaInicioClases = LocalTime.parse("16:00", FORMATO_HORA);
+		LocalTime horaFinClases = LocalTime.parse("22:15", FORMATO_HORA);
 		if (hora == null) {
 			throw new NullPointerException("ERROR: La hora no puede ser nula.");
-		} else if(hora.isBefore(horaInicioClases)||hora.isAfter(horaFinClases)) {
-			throw new IllegalArgumentException("ERROR: La hora debe estar comprendida entre la hora de inicio y fin de la sesión.");
-		} else if(sesion.getHoraInicio().isAfter(sesion.getHoraFin())) {
+		} else if (hora.isBefore(horaInicioClases) || hora.isAfter(horaFinClases) || Math
+				.toIntExact(Duration.between(hora, sesion.getHoraFin()).toMinutes()) < sesion.getMinutosDuracion()) {
+			throw new IllegalArgumentException(
+					"ERROR: La hora debe estar comprendida entre la hora de inicio y fin de la sesión.");
+		} else if (Duration.between(hora, sesion.getHoraFin()).toMinutes() % sesion.getMinutosDuracion() != 0) {
+			throw new IllegalArgumentException(
+					"ERROR: La hora debe comenzar en un múltiplo de los minutos de duración.");
+		} else if (sesion.getHoraInicio().isAfter(sesion.getHoraFin())) {
 			throw new IllegalArgumentException("ERROR: La hora de inicio debe ir antes que la de Fin.");
-		}else {
+		} else {
+
 			this.hora = hora;
 		}
 	}
